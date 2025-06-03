@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站设置 - Rebirth</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/flat.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/admin.js"></script>
+</head>
+<body data-theme-style="flat">
+    <div class="admin-layout">
+        <!-- 侧边栏 -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="/static/img/logo-light.png" alt="Rebirth Admin">
+                <h1>Rebirth 管理</h1>
+            </div>
+            
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="/admin"><span>📊</span> 仪表盘</a></li>
+                    <li><a href="/admin/articles"><span>📝</span> 文章管理</a></li>
+                    <li><a href="/admin/categories"><span>📁</span> 分类管理</a></li>
+                    <li><a href="/admin/collections"><span>📚</span> 合辑管理</a></li>
+                    <li><a href="/admin/slides"><span>🖼️</span> 幻灯片管理</a></li>
+                    <li><a href="/admin/announcements"><span>📢</span> 公告管理</a></li>
+                    <li><a href="/admin/menus"><span>📋</span> 菜单管理</a></li>
+                    <li><a href="/admin/settings" class="active"><span>⚙️</span> 网站设置</a></li>
+                    <li><a href="/admin/users"><span>👥</span> 用户管理</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- 主内容区 -->
+        <main class="admin-main">
+            <!-- 顶部栏 -->
+            <header class="admin-header">
+                <div class="admin-header-left">
+                    <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+                    <h2>网站设置</h2>
+                </div>
+                <div class="admin-header-right">
+                    <button id="admin-theme-toggle" class="theme-toggle" aria-label="切换主题">🌙</button>
+                    <div class="admin-user-dropdown">
+                        <button class="admin-user-btn">
+                            <span class="admin-avatar">A</span>
+                            <span class="admin-username">管理员</span>
+                        </button>
+                        <div class="admin-dropdown-menu">
+                            <a href="/admin/profile">个人资料</a>
+                            <a href="#" id="logout-btn">退出登录</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- 内容区 -->
+            <div class="admin-content">
+                <form id="settings-form" class="admin-form">
+                    <div class="admin-card">
+                        <div class="admin-card-header">
+                            <h3>基本设置</h3>
+                        </div>
+                        <div class="admin-card-body">
+                            <div class="admin-form-group">
+                                <label for="site_name" class="admin-form-label">网站名称</label>
+                                <input type="text" id="site_name" name="site_name" class="admin-form-control" placeholder="请输入网站名称">
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="site_description" class="admin-form-label">网站描述</label>
+                                <textarea id="site_description" name="site_description" class="admin-form-control" rows="3" placeholder="请输入网站描述"></textarea>
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="site_keywords" class="admin-form-label">网站关键词</label>
+                                <input type="text" id="site_keywords" name="site_keywords" class="admin-form-control" placeholder="请输入网站关键词，用英文逗号分隔">
+                                <div class="admin-form-text">多个关键词请用英文逗号分隔</div>
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="site_icp" class="admin-form-label">备案号</label>
+                                <input type="text" id="site_icp" name="site_icp" class="admin-form-control" placeholder="请输入网站备案号">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="admin-card-header">
+                            <h3>主题设置</h3>
+                        </div>
+                        <div class="admin-card-body">
+                            <div class="admin-form-group">
+                                <label class="admin-form-label">主题风格</label>
+                                <div class="admin-theme-options">
+                                    <div class="admin-theme-option">
+                                        <input type="radio" id="theme_flat" name="theme_style" value="flat" checked>
+                                        <label for="theme_flat" class="admin-theme-preview flat-preview">
+                                            <span class="theme-name">扁平风格</span>
+                                        </label>
+                                    </div>
+                                    <div class="admin-theme-option">
+                                        <input type="radio" id="theme_neumorphism" name="theme_style" value="neumorphism">
+                                        <label for="theme_neumorphism" class="admin-theme-preview neumorphism-preview">
+                                            <span class="theme-name">拟态风格</span>
+                                        </label>
+                                    </div>
+                                    <div class="admin-theme-option">
+                                        <input type="radio" id="theme_newspaper" name="theme_style" value="newspaper">
+                                        <label for="theme_newspaper" class="admin-theme-preview newspaper-preview">
+                                            <span class="theme-name">报纸风格</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label class="admin-form-label">显示模式</label>
+                                <div class="admin-radio-group">
+                                    <div class="admin-radio">
+                                        <input type="radio" id="display_auto" name="display_mode" value="auto" checked>
+                                        <label for="display_auto">自动（跟随系统）</label>
+                                    </div>
+                                    <div class="admin-radio">
+                                        <input type="radio" id="display_light" name="display_mode" value="light">
+                                        <label for="display_light">浅色模式</label>
+                                    </div>
+                                    <div class="admin-radio">
+                                        <input type="radio" id="display_dark" name="display_mode" value="dark">
+                                        <label for="display_dark">深色模式</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="admin-card-header">
+                            <h3>Logo设置</h3>
+                        </div>
+                        <div class="admin-card-body">
+                            <div class="admin-form-group">
+                                <label class="admin-form-label">浅色模式Logo</label>
+                                <div class="admin-upload-preview">
+                                    <img id="logo_light_preview" src="/static/img/logo-light.png" alt="浅色Logo预览">
+                                </div>
+                                <div class="admin-upload-group">
+                                    <input type="file" id="logo_light" name="logo_light" class="admin-form-control" accept="image/*">
+                                    <button type="button" class="admin-btn admin-btn-outline" id="logo_light_upload">上传Logo</button>
+                                </div>
+                                <div class="admin-form-text">推荐尺寸：200x60px，透明背景PNG格式</div>
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label class="admin-form-label">深色模式Logo</label>
+                                <div class="admin-upload-preview">
+                                    <img id="logo_dark_preview" src="/static/img/logo-dark.png" alt="深色Logo预览">
+                                </div>
+                                <div class="admin-upload-group">
+                                    <input type="file" id="logo_dark" name="logo_dark" class="admin-form-control" accept="image/*">
+                                    <button type="button" class="admin-btn admin-btn-outline" id="logo_dark_upload">上传Logo</button>
+                                </div>
+                                <div class="admin-form-text">推荐尺寸：200x60px，透明背景PNG格式</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="admin-card-header">
+                            <h3>社交媒体设置</h3>
+                        </div>
+                        <div class="admin-card-body">
+                            <div class="admin-form-group">
+                                <label for="social_weibo" class="admin-form-label">微博</label>
+                                <input type="text" id="social_weibo" name="social_weibo" class="admin-form-control" placeholder="请输入微博链接">
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="social_wechat" class="admin-form-label">微信公众号</label>
+                                <input type="text" id="social_wechat" name="social_wechat" class="admin-form-control" placeholder="请输入微信公众号ID">
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="social_qq" class="admin-form-label">QQ</label>
+                                <input type="text" id="social_qq" name="social_qq" class="admin-form-control" placeholder="请输入QQ号码">
+                            </div>
+                            
+                            <div class="admin-form-group">
+                                <label for="social_email" class="admin-form-label">电子邮箱</label>
+                                <input type="email" id="social_email" name="social_email" class="admin-form-control" placeholder="请输入电子邮箱">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-form-actions">
+                        <button type="submit" class="admin-btn admin-btn-primary">保存设置</button>
+                        <button type="reset" class="admin-btn admin-btn-outline">重置</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查登录状态
+            if (!API.isLoggedIn()) {
+                window.location.href = '/login.html';
+                return;
+            }
+            
+            const user = API.getCurrentUser();
+            if (!user || user.role !== 'admin') {
+                alert('您没有管理员权限');
+                window.location.href = '/';
+                return;
+            }
+            
+            const settingsForm = document.getElementById('settings-form');
+            
+            // 加载网站设置
+            async function loadSettings() {
+                try {
+                    const response = await API.get('/settings/');
+                    
+                    if (response.setting) {
+                        const setting = response.setting;
+                        
+                        // 填充表单
+                        document.getElementById('site_name').value = setting.site_name || '';
+                        document.getElementById('site_description').value = setting.site_description || '';
+                        document.getElementById('site_keywords').value = setting.site_keywords || '';
+                        document.getElementById('site_icp').value = setting.site_icp || '';
+                        
+                        // 主题风格
+                        const themeStyle = setting.theme_style || 'flat';
+                        document.querySelector(`input[name="theme_style"][value="${themeStyle}"]`).checked = true;
+                        
+                        // 显示模式
+                        const displayMode = setting.display_mode || 'auto';
+                        document.querySelector(`input[name="display_mode"][value="${displayMode}"]`).checked = true;
+                        
+                        // Logo预览
+                        if (setting.logo_light) {
+                            document.getElementById('logo_light_preview').src = setting.logo_light;
+                        }
+                        
+                        if (setting.logo_dark) {
+                            document.getElementById('logo_dark_preview').src = setting.logo_dark;
+                        }
+                        
+                        // 社交媒体
+                        document.getElementById('social_weibo').value = setting.social_weibo || '';
+                        document.getElementById('social_wechat').value = setting.social_wechat || '';
+                        document.getElementById('social_qq').value = setting.social_qq || '';
+                        document.getElementById('social_email').value = setting.social_email || '';
+                    }
+                } catch (error) {
+                    console.error('Failed to load settings:', error);
+                    alert('加载网站设置失败，请稍后再试');
+                }
+            }
+            
+            // 保存网站设置
+            async function saveSettings(formData) {
+                try {
+                    const response = await API.put('/settings/', formData);
+                    
+                    if (response.success) {
+                        alert('网站设置保存成功');
+                    } else {
+                        alert('网站设置保存失败：' + (response.message || '未知错误'));
+                    }
+                } catch (error) {
+                    console.error('Failed to save settings:', error);
+                    alert('保存网站设置失败，请稍后再试');
+                }
+            }
+            
+            // 上传Logo
+            async function uploadLogo(file, type) {
+                try {
+                    const formData = new FormData();
+                    formData.append('logo', file);
+                    formData.append('type', type);
+                    
+                    const response = await fetch('/api/settings/upload-logo', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: formData
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    
+                    if (result.success && result.logo_url) {
+                        document.getElementById(`logo_${type}_preview`).src = result.logo_url;
+                        alert('Logo上传成功');
+                    } else {
+                        alert('Logo上传失败：' + (result.message || '未知错误'));
+                    }
+                } catch (error) {
+                    console.error('Failed to upload logo:', error);
+                    alert('Logo上传失败，请稍后再试');
+                }
+            }
+            
+            // 绑定Logo上传事件
+            document.getElementById('logo_light_upload').addEventListener('click', function() {
+                const fileInput = document.getElementById('logo_light');
+                if (fileInput.files.length > 0) {
+                    uploadLogo(fileInput.files[0], 'light');
+                } else {
+                    alert('请先选择要上传的Logo文件');
+                }
+            });
+            
+            document.getElementById('logo_dark_upload').addEventListener('click', function() {
+                const fileInput = document.getElementById('logo_dark');
+                if (fileInput.files.length > 0) {
+                    uploadLogo(fileInput.files[0], 'dark');
+                } else {
+                    alert('请先选择要上传的Logo文件');
+                }
+            });
+            
+            // 绑定表单提交事件
+            settingsForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    site_name: document.getElementById('site_name').value,
+                    site_description: document.getElementById('site_description').value,
+                    site_keywords: document.getElementById('site_keywords').value,
+                    site_icp: document.getElementById('site_icp').value,
+                    theme_style: document.querySelector('input[name="theme_style"]:checked').value,
+                    display_mode: document.querySelector('input[name="display_mode"]:checked').value,
+                    social_weibo: document.getElementById('social_weibo').value,
+                    social_wechat: document.getElementById('social_wechat').value,
+                    social_qq: document.getElementById('social_qq').value,
+                    social_email: document.getElementById('social_email').value
+                };
+                
+                saveSettings(formData);
+            });
+            
+            // 实时预览主题风格
+            const themeOptions = document.querySelectorAll('input[name="theme_style"]');
+            themeOptions.forEach(option => {
+                option.addEventListener('change', function() {
+                    document.documentElement.setAttribute('data-theme-style', this.value);
+                });
+            });
+            
+            // 初始化
+            loadSettings();
+        });
+    </script>
+    
+    <style>
+        .admin-form-actions {
+            margin-top: var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-md);
+        }
+        
+        .admin-upload-preview {
+            margin-bottom: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            background-color: var(--bg-color-secondary);
+            text-align: center;
+        }
+        
+        .admin-upload-preview img {
+            max-height: 60px;
+        }
+        
+        .admin-upload-group {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .admin-upload-group input[type="file"] {
+            flex: 1;
+        }
+        
+        .admin-theme-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .admin-theme-option {
+            position: relative;
+        }
+        
+        .admin-theme-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .admin-theme-preview {
+            display: block;
+            width: 200px;
+            height: 120px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            transition: all var(--transition-fast);
+        }
+        
+        .admin-theme-option input[type="radio"]:checked + .admin-theme-preview {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+        }
+        
+        .theme-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: var(--spacing-xs);
+            text-align: center;
+        }
+        
+        .flat-preview {
+            background-color: #ffffff;
+            background-image: linear-gradient(to bottom, #3498db 40px, transparent 40px);
+        }
+        
+        .neumorphism-preview {
+            background-color: #e6e9ef;
+            box-shadow: inset 5px 5px 10px rgba(163, 177, 198, 0.5), inset -5px -5px 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .newspaper-preview {
+            background-color: #f8f5f0;
+            background-image: linear-gradient(to bottom, transparent 30px, #222222 30px, #222222 32px, transparent 32px);
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .admin-radio-group {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+        
+        .admin-radio {
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-radio input[type="radio"] {
+            margin-right: var(--spacing-xs);
+        }
+    </style>
+</body>
+</html>

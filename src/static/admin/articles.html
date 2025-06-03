@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章管理 - Rebirth</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/flat.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/admin.js"></script>
+</head>
+<body data-theme-style="flat">
+    <div class="admin-layout">
+        <!-- 侧边栏 -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="/static/img/logo-light.png" alt="Rebirth Admin">
+                <h1>Rebirth 管理</h1>
+            </div>
+            
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="/admin"><span>📊</span> 仪表盘</a></li>
+                    <li><a href="/admin/articles" class="active"><span>📝</span> 文章管理</a></li>
+                    <li><a href="/admin/categories"><span>📁</span> 分类管理</a></li>
+                    <li><a href="/admin/collections"><span>📚</span> 合辑管理</a></li>
+                    <li><a href="/admin/slides"><span>🖼️</span> 幻灯片管理</a></li>
+                    <li><a href="/admin/announcements"><span>📢</span> 公告管理</a></li>
+                    <li><a href="/admin/menus"><span>📋</span> 菜单管理</a></li>
+                    <li><a href="/admin/settings"><span>⚙️</span> 网站设置</a></li>
+                    <li><a href="/admin/users"><span>👥</span> 用户管理</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- 主内容区 -->
+        <main class="admin-main">
+            <!-- 顶部栏 -->
+            <header class="admin-header">
+                <div class="admin-header-left">
+                    <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+                    <h2>文章管理</h2>
+                </div>
+                <div class="admin-header-right">
+                    <button id="admin-theme-toggle" class="theme-toggle" aria-label="切换主题">🌙</button>
+                    <div class="admin-user-dropdown">
+                        <button class="admin-user-btn">
+                            <span class="admin-avatar">A</span>
+                            <span class="admin-username">管理员</span>
+                        </button>
+                        <div class="admin-dropdown-menu">
+                            <a href="/admin/profile">个人资料</a>
+                            <a href="#" id="logout-btn">退出登录</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- 内容区 -->
+            <div class="admin-content">
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <h3>文章列表</h3>
+                        <a href="/admin/articles/new" class="admin-btn">新建文章</a>
+                    </div>
+                    <div class="admin-card-body">
+                        <div class="admin-filter-bar">
+                            <div class="admin-filter-group">
+                                <select id="category-filter" class="admin-form-control">
+                                    <option value="">所有分类</option>
+                                    <option value="1">网站设计</option>
+                                    <option value="2">前端开发</option>
+                                    <option value="3">UI设计</option>
+                                    <option value="4">后端开发</option>
+                                    <option value="5">SEO优化</option>
+                                </select>
+                            </div>
+                            <div class="admin-filter-group">
+                                <select id="status-filter" class="admin-form-control">
+                                    <option value="">所有状态</option>
+                                    <option value="published">已发布</option>
+                                    <option value="draft">草稿</option>
+                                </select>
+                            </div>
+                            <div class="admin-filter-group">
+                                <input type="text" id="search-input" class="admin-form-control" placeholder="搜索文章...">
+                                <button id="search-btn" class="admin-btn">搜索</button>
+                            </div>
+                        </div>
+                        
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>标题</th>
+                                    <th>分类</th>
+                                    <th>作者</th>
+                                    <th>发布日期</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="articles-list">
+                                <!-- 文章列表将通过JavaScript动态加载 -->
+                            </tbody>
+                        </table>
+                        
+                        <div class="admin-pagination" id="articles-pagination">
+                            <!-- 分页将通过JavaScript动态加载 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查登录状态
+            if (!API.isLoggedIn()) {
+                window.location.href = '/login.html';
+                return;
+            }
+            
+            const user = API.getCurrentUser();
+            if (!user || user.role !== 'admin') {
+                alert('您没有管理员权限');
+                window.location.href = '/';
+                return;
+            }
+            
+            // 当前页码
+            let currentPage = 1;
+            // 每页显示数量
+            const perPage = 10;
+            // 筛选条件
+            let filters = {
+                category_id: '',
+                status: '',
+                keyword: ''
+            };
+            
+            // 加载文章列表
+            async function loadArticles() {
+                try {
+                    const params = {
+                        page: currentPage,
+                        per_page: perPage,
+                        ...filters
+                    };
+                    
+                    const response = await API.get('/articles/', params);
+                    renderArticles(response);
+                } catch (error) {
+                    console.error('Failed to load articles:', error);
+                    alert('加载文章列表失败，请稍后再试');
+                }
+            }
+            
+            // 渲染文章列表
+            function renderArticles(data) {
+                const articlesList = document.getElementById('articles-list');
+                const pagination = document.getElementById('articles-pagination');
+                
+                // 清空现有内容
+                articlesList.innerHTML = '';
+                pagination.innerHTML = '';
+                
+                // 渲染文章列表
+                if (data.articles && data.articles.length > 0) {
+                    data.articles.forEach(article => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${article.id}</td>
+                            <td><a href="/admin/articles/edit/${article.id}">${article.title}</a></td>
+                            <td>${article.categories.map(cat => cat.name).join(', ') || '未分类'}</td>
+                            <td>${article.author}</td>
+                            <td>${article.published_at ? new Date(article.published_at).toLocaleDateString() : '未发布'}</td>
+                            <td><span class="status-${article.status}">${article.status === 'published' ? '已发布' : '草稿'}</span></td>
+                            <td>
+                                <a href="/admin/articles/edit/${article.id}" class="admin-btn-sm">编辑</a>
+                                <button class="admin-btn-sm admin-btn-danger delete-btn" data-id="${article.id}">删除</button>
+                            </td>
+                        `;
+                        articlesList.appendChild(row);
+                    });
+                    
+                    // 添加删除事件监听
+                    document.querySelectorAll('.delete-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const articleId = this.getAttribute('data-id');
+                            deleteArticle(articleId);
+                        });
+                    });
+                } else {
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="7" class="text-center">没有找到文章</td>';
+                    articlesList.appendChild(row);
+                }
+                
+                // 渲染分页
+                if (data.total > perPage) {
+                    const totalPages = data.pages;
+                    
+                    // 上一页按钮
+                    if (currentPage > 1) {
+                        const prevBtn = document.createElement('a');
+                        prevBtn.href = '#';
+                        prevBtn.className = 'admin-btn-sm';
+                        prevBtn.textContent = '上一页';
+                        prevBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            currentPage--;
+                            loadArticles();
+                        });
+                        pagination.appendChild(prevBtn);
+                    }
+                    
+                    // 页码按钮
+                    for (let i = 1; i <= totalPages; i++) {
+                        const pageBtn = document.createElement('a');
+                        pageBtn.href = '#';
+                        pageBtn.className = i === currentPage ? 'admin-btn-sm active' : 'admin-btn-sm';
+                        pageBtn.textContent = i;
+                        pageBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            currentPage = i;
+                            loadArticles();
+                        });
+                        pagination.appendChild(pageBtn);
+                    }
+                    
+                    // 下一页按钮
+                    if (currentPage < totalPages) {
+                        const nextBtn = document.createElement('a');
+                        nextBtn.href = '#';
+                        nextBtn.className = 'admin-btn-sm';
+                        nextBtn.textContent = '下一页';
+                        nextBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            currentPage++;
+                            loadArticles();
+                        });
+                        pagination.appendChild(nextBtn);
+                    }
+                }
+            }
+            
+            // 删除文章
+            async function deleteArticle(id) {
+                if (confirm('确定要删除这篇文章吗？此操作不可恢复。')) {
+                    try {
+                        await API.delete(`/articles/${id}`);
+                        alert('文章删除成功');
+                        loadArticles();
+                    } catch (error) {
+                        console.error('Failed to delete article:', error);
+                        alert('删除文章失败，请稍后再试');
+                    }
+                }
+            }
+            
+            // 绑定筛选事件
+            const categoryFilter = document.getElementById('category-filter');
+            const statusFilter = document.getElementById('status-filter');
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            
+            categoryFilter.addEventListener('change', function() {
+                filters.category_id = this.value;
+                currentPage = 1;
+                loadArticles();
+            });
+            
+            statusFilter.addEventListener('change', function() {
+                filters.status = this.value;
+                currentPage = 1;
+                loadArticles();
+            });
+            
+            searchBtn.addEventListener('click', function() {
+                filters.keyword = searchInput.value.trim();
+                currentPage = 1;
+                loadArticles();
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    filters.keyword = this.value.trim();
+                    currentPage = 1;
+                    loadArticles();
+                }
+            });
+            
+            // 加载分类列表
+            async function loadCategories() {
+                try {
+                    const response = await API.get('/categories/');
+                    
+                    if (response.categories && response.categories.length > 0) {
+                        categoryFilter.innerHTML = '<option value="">所有分类</option>';
+                        
+                        response.categories.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category.id;
+                            option.textContent = category.name;
+                            categoryFilter.appendChild(option);
+                            
+                            // 添加子分类
+                            if (category.children && category.children.length > 0) {
+                                category.children.forEach(child => {
+                                    const childOption = document.createElement('option');
+                                    childOption.value = child.id;
+                                    childOption.textContent = `— ${child.name}`;
+                                    categoryFilter.appendChild(childOption);
+                                });
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error('Failed to load categories:', error);
+                }
+            }
+            
+            // 初始化
+            loadCategories();
+            loadArticles();
+        });
+    </script>
+    
+    <style>
+        .admin-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .admin-filter-group {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+        }
+        
+        .admin-filter-group .admin-form-control {
+            flex: 1;
+        }
+        
+        .admin-filter-group .admin-btn {
+            margin-left: var(--spacing-xs);
+        }
+        
+        .admin-pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: var(--spacing-md);
+            gap: var(--spacing-xs);
+        }
+        
+        .admin-pagination .admin-btn-sm {
+            padding: var(--spacing-xs) var(--spacing-sm);
+        }
+        
+        .admin-pagination .admin-btn-sm.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</body>
+</html>

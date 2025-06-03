@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebirth 主题</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/neumorphism.css">
+    <link rel="stylesheet" href="/static/css/newspaper.css">
+    <link rel="stylesheet" href="/static/css/flat.css">
+    <script src="/static/js/main.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <img src="/static/img/logo-light.png" alt="Rebirth">
+                </div>
+                
+                <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="菜单" aria-expanded="false">
+                    <span>☰</span>
+                </button>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="/" class="active">首页</a></li>
+                        <li><a href="/articles">文章</a></li>
+                        <li><a href="/collections">合辑</a></li>
+                        <li><a href="/about">关于</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-right">
+                    <form id="search-form" class="search-box">
+                        <input type="text" id="search-input" placeholder="搜索...">
+                        <button type="submit" aria-label="搜索">🔍</button>
+                    </form>
+                    
+                    <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">🌙</button>
+                    
+                    <select id="style-selector" class="style-selector">
+                        <option value="flat">扁平风格</option>
+                        <option value="neumorphism">拟态风格</option>
+                        <option value="newspaper">报纸风格</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            <!-- 幻灯片 -->
+            <section class="slider">
+                <div class="slider-inner">
+                    <div class="slider-item">
+                        <img src="/static/img/slide1.jpg" alt="幻灯片1" class="slider-img">
+                        <div class="slider-caption">
+                            <h2 class="slider-title">欢迎使用Rebirth主题</h2>
+                            <p class="slider-desc">一个多风格可自选的自适应网站主题</p>
+                        </div>
+                    </div>
+                    <div class="slider-item">
+                        <img src="/static/img/slide2.jpg" alt="幻灯片2" class="slider-img">
+                        <div class="slider-caption">
+                            <h2 class="slider-title">三种风格随心切换</h2>
+                            <p class="slider-desc">圆角拟态风格、老式报纸杂志风格、传统扁平风格</p>
+                        </div>
+                    </div>
+                    <div class="slider-item">
+                        <img src="/static/img/slide3.jpg" alt="幻灯片3" class="slider-img">
+                        <div class="slider-caption">
+                            <h2 class="slider-title">黑夜白天模式</h2>
+                            <p class="slider-desc">支持自动切换或手动选择显示模式</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 公告 -->
+            <section class="announcement mt-4">
+                <h3 class="announcement-title">网站公告</h3>
+                <div class="announcement-content">
+                    欢迎访问Rebirth主题演示网站，这是一个多风格可自选的自适应网站主题。您可以在右上角切换不同的主题风格和显示模式。
+                </div>
+            </section>
+            
+            <div class="row mt-4">
+                <!-- 主内容区 -->
+                <div class="col-8 col-md-12">
+                    <!-- 文章列表 -->
+                    <section class="article-list">
+                        <h2 class="mb-3">最新文章</h2>
+                        
+                        <article class="article-item">
+                            <div class="article-img">
+                                <img src="/static/img/article1.jpg" alt="文章图片">
+                            </div>
+                            <div class="article-content">
+                                <h3 class="article-title"><a href="/article/1">如何选择适合自己的网站主题风格</a></h3>
+                                <p class="article-excerpt">在网站设计中，选择合适的主题风格对于提升用户体验和表达网站个性至关重要。本文将介绍如何根据网站内容和目标受众选择最适合的主题风格。</p>
+                                <div class="article-meta">
+                                    <span>作者: 管理员</span>
+                                    <span>分类: 网站设计</span>
+                                    <span>2025-06-01</span>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <article class="article-item">
+                            <div class="article-img">
+                                <img src="/static/img/article2.jpg" alt="文章图片">
+                            </div>
+                            <div class="article-content">
+                                <h3 class="article-title"><a href="/article/2">响应式设计的重要性</a></h3>
+                                <p class="article-excerpt">随着移动设备使用率的不断提高，响应式设计已成为现代网站开发的标准。本文探讨了响应式设计的重要性及其实现方法。</p>
+                                <div class="article-meta">
+                                    <span>作者: 管理员</span>
+                                    <span>分类: 前端开发</span>
+                                    <span>2025-05-28</span>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <article class="article-item">
+                            <div class="article-img">
+                                <img src="/static/img/article3.jpg" alt="文章图片">
+                            </div>
+                            <div class="article-content">
+                                <h3 class="article-title"><a href="/article/3">深色模式设计指南</a></h3>
+                                <p class="article-excerpt">深色模式已成为现代UI设计的重要趋势。本文提供了深色模式设计的最佳实践和注意事项，帮助开发者创建舒适的夜间浏览体验。</p>
+                                <div class="article-meta">
+                                    <span>作者: 管理员</span>
+                                    <span>分类: UI设计</span>
+                                    <span>2025-05-20</span>
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+                    
+                    <!-- 分页 -->
+                    <div class="pagination">
+                        <div class="pagination-item">
+                            <a href="#" class="pagination-link active">1</a>
+                        </div>
+                        <div class="pagination-item">
+                            <a href="#" class="pagination-link">2</a>
+                        </div>
+                        <div class="pagination-item">
+                            <a href="#" class="pagination-link">3</a>
+                        </div>
+                        <div class="pagination-item">
+                            <a href="#" class="pagination-link">下一页 &raquo;</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 侧边栏 -->
+                <div class="col-4 col-md-12">
+                    <!-- 关于模块 -->
+                    <div class="sidebar-widget">
+                        <h3 class="sidebar-title">关于本站</h3>
+                        <p>Rebirth是一个多风格可自选的自适应网站主题，支持圆角拟态风格、老式报纸杂志风格和传统扁平风格，并提供黑夜白天模式切换功能。</p>
+                        <a href="/about" class="btn btn-outline mt-2">了解更多</a>
+                    </div>
+                    
+                    <!-- 分类模块 -->
+                    <div class="sidebar-widget">
+                        <h3 class="sidebar-title">文章分类</h3>
+                        <ul class="sidebar-list">
+                            <li><a href="/category/web-design">网站设计 (12)</a></li>
+                            <li><a href="/category/frontend">前端开发 (8)</a></li>
+                            <li><a href="/category/ui-design">UI设计 (6)</a></li>
+                            <li><a href="/category/backend">后端开发 (5)</a></li>
+                            <li><a href="/category/seo">SEO优化 (4)</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 热门文章 -->
+                    <div class="sidebar-widget">
+                        <h3 class="sidebar-title">热门文章</h3>
+                        <ul class="sidebar-list">
+                            <li><a href="/article/1">如何选择适合自己的网站主题风格</a></li>
+                            <li><a href="/article/2">响应式设计的重要性</a></li>
+                            <li><a href="/article/3">深色模式设计指南</a></li>
+                            <li><a href="/article/4">现代网站开发趋势</a></li>
+                            <li><a href="/article/5">提升网站性能的10个技巧</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 标签云 -->
+                    <div class="sidebar-widget">
+                        <h3 class="sidebar-title">标签云</h3>
+                        <div class="tag-cloud">
+                            <a href="/tag/design" class="tag-link">设计</a>
+                            <a href="/tag/responsive" class="tag-link">响应式</a>
+                            <a href="/tag/darkmode" class="tag-link">深色模式</a>
+                            <a href="/tag/css" class="tag-link">CSS</a>
+                            <a href="/tag/html" class="tag-link">HTML</a>
+                            <a href="/tag/javascript" class="tag-link">JavaScript</a>
+                            <a href="/tag/python" class="tag-link">Python</a>
+                            <a href="/tag/flask" class="tag-link">Flask</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-widget">
+                    <h3>关于我们</h3>
+                    <p>Rebirth是一个多风格可自选的自适应网站主题，支持多种风格切换和黑夜白天模式。</p>
+                </div>
+                <div class="footer-widget">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/articles">文章</a></li>
+                        <li><a href="/collections">合辑</a></li>
+                        <li><a href="/about">关于</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget">
+                    <h3>联系我们</h3>
+                    <ul>
+                        <li>邮箱: info@rebirth.com</li>
+                        <li>电话: 123-456-7890</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rebirth主题. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

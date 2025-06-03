@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理 - Rebirth</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/flat.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/admin.js"></script>
+</head>
+<body data-theme-style="flat">
+    <div class="admin-layout">
+        <!-- 侧边栏 -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="/static/img/logo-light.png" alt="Rebirth Admin">
+                <h1>Rebirth 管理</h1>
+            </div>
+            
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="/admin" class="active"><span>📊</span> 仪表盘</a></li>
+                    <li><a href="/admin/articles"><span>📝</span> 文章管理</a></li>
+                    <li><a href="/admin/categories"><span>📁</span> 分类管理</a></li>
+                    <li><a href="/admin/collections"><span>📚</span> 合辑管理</a></li>
+                    <li><a href="/admin/slides"><span>🖼️</span> 幻灯片管理</a></li>
+                    <li><a href="/admin/announcements"><span>📢</span> 公告管理</a></li>
+                    <li><a href="/admin/menus"><span>📋</span> 菜单管理</a></li>
+                    <li><a href="/admin/settings"><span>⚙️</span> 网站设置</a></li>
+                    <li><a href="/admin/users"><span>👥</span> 用户管理</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- 主内容区 -->
+        <main class="admin-main">
+            <!-- 顶部栏 -->
+            <header class="admin-header">
+                <div class="admin-header-left">
+                    <button id="sidebar-toggle" class="sidebar-toggle">☰</button>
+                    <h2>仪表盘</h2>
+                </div>
+                <div class="admin-header-right">
+                    <button id="admin-theme-toggle" class="theme-toggle" aria-label="切换主题">🌙</button>
+                    <div class="admin-user-dropdown">
+                        <button class="admin-user-btn">
+                            <span class="admin-avatar">A</span>
+                            <span class="admin-username">管理员</span>
+                        </button>
+                        <div class="admin-dropdown-menu">
+                            <a href="/admin/profile">个人资料</a>
+                            <a href="#" id="logout-btn">退出登录</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- 内容区 -->
+            <div class="admin-content">
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <h3>文章数量</h3>
+                            <p class="stat-number">24</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <h3>用户数量</h3>
+                            <p class="stat-number">12</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">👁️</div>
+                        <div class="stat-content">
+                            <h3>总浏览量</h3>
+                            <p class="stat-number">1,234</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <h3>本月新增</h3>
+                            <p class="stat-number">+15%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-row">
+                    <div class="admin-col-8">
+                        <div class="admin-card">
+                            <div class="admin-card-header">
+                                <h3>最近文章</h3>
+                                <a href="/admin/articles" class="admin-btn-sm">查看全部</a>
+                            </div>
+                            <div class="admin-card-body">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>标题</th>
+                                            <th>作者</th>
+                                            <th>分类</th>
+                                            <th>发布日期</th>
+                                            <th>状态</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="/admin/articles/edit/1">如何选择适合自己的网站主题风格</a></td>
+                                            <td>管理员</td>
+                                            <td>网站设计</td>
+                                            <td>2025-06-01</td>
+                                            <td><span class="status-published">已发布</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="/admin/articles/edit/2">响应式设计的重要性</a></td>
+                                            <td>管理员</td>
+                                            <td>前端开发</td>
+                                            <td>2025-05-28</td>
+                                            <td><span class="status-published">已发布</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="/admin/articles/edit/3">深色模式设计指南</a></td>
+                                            <td>管理员</td>
+                                            <td>UI设计</td>
+                                            <td>2025-05-20</td>
+                                            <td><span class="status-published">已发布</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="/admin/articles/edit/4">现代网站开发趋势</a></td>
+                                            <td>管理员</td>
+                                            <td>网站设计</td>
+                                            <td>2025-05-15</td>
+                                            <td><span class="status-published">已发布</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="/admin/articles/edit/5">提升网站性能的10个技巧</a></td>
+                                            <td>管理员</td>
+                                            <td>前端开发</td>
+                                            <td>2025-05-10</td>
+                                            <td><span class="status-draft">草稿</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-col-4">
+                        <div class="admin-card">
+                            <div class="admin-card-header">
+                                <h3>快速操作</h3>
+                            </div>
+                            <div class="admin-card-body">
+                                <div class="admin-quick-actions">
+                                    <a href="/admin/articles/new" class="admin-quick-action">
+                                        <span class="quick-action-icon">📝</span>
+                                        <span class="quick-action-text">写文章</span>
+                                    </a>
+                                    <a href="/admin/slides/new" class="admin-quick-action">
+                                        <span class="quick-action-icon">🖼️</span>
+                                        <span class="quick-action-text">添加幻灯片</span>
+                                    </a>
+                                    <a href="/admin/announcements/new" class="admin-quick-action">
+                                        <span class="quick-action-icon">📢</span>
+                                        <span class="quick-action-text">发布公告</span>
+                                    </a>
+                                    <a href="/admin/settings" class="admin-quick-action">
+                                        <span class="quick-action-icon">⚙️</span>
+                                        <span class="quick-action-text">网站设置</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-card mt-4">
+                            <div class="admin-card-header">
+                                <h3>分类统计</h3>
+                            </div>
+                            <div class="admin-card-body">
+                                <ul class="admin-category-stats">
+                                    <li>
+                                        <span class="category-name">网站设计</span>
+                                        <span class="category-count">12</span>
+                                    </li>
+                                    <li>
+                                        <span class="category-name">前端开发</span>
+                                        <span class="category-count">8</span>
+                                    </li>
+                                    <li>
+                                        <span class="category-name">UI设计</span>
+                                        <span class="category-count">6</span>
+                                    </li>
+                                    <li>
+                                        <span class="category-name">后端开发</span>
+                                        <span class="category-count">5</span>
+                                    </li>
+                                    <li>
+                                        <span class="category-name">SEO优化</span>
+                                        <span class="category-count">4</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

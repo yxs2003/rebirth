@@ -1,0 +1,328 @@
+/* 
+ * Rebirth 圆角拟态风格主题
+ * 基于新拟态设计，柔和圆角，立体感强
+ */
+
+[data-theme-style="neumorphism"] {
+  /* 拟态风格特有颜色变量 - 浅色模式 */
+  --neumorphism-bg: #e6e9ef;
+  --neumorphism-shadow-light: rgba(255, 255, 255, 0.8);
+  --neumorphism-shadow-dark: rgba(163, 177, 198, 0.5);
+  --neumorphism-highlight: rgba(255, 255, 255, 0.7);
+  
+  /* 覆盖基础变量 */
+  --bg-color: #e6e9ef;
+  --bg-color-secondary: #e0e5ec;
+  --border-radius-sm: 10px;
+  --border-radius-md: 15px;
+  --border-radius-lg: 25px;
+  
+  /* 拟态阴影 */
+  --shadow-sm: 5px 5px 10px var(--neumorphism-shadow-dark), -5px -5px 10px var(--neumorphism-shadow-light);
+  --shadow-md: 8px 8px 16px var(--neumorphism-shadow-dark), -8px -8px 16px var(--neumorphism-shadow-light);
+  --shadow-lg: 12px 12px 24px var(--neumorphism-shadow-dark), -12px -12px 24px var(--neumorphism-shadow-light);
+  
+  /* 拟态内阴影（凹陷效果） */
+  --shadow-inset-sm: inset 3px 3px 6px var(--neumorphism-shadow-dark), inset -3px -3px 6px var(--neumorphism-shadow-light);
+  --shadow-inset-md: inset 5px 5px 10px var(--neumorphism-shadow-dark), inset -5px -5px 10px var(--neumorphism-shadow-light);
+}
+
+/* 深色模式拟态风格 */
+[data-theme="dark"][data-theme-style="neumorphism"] {
+  /* 拟态风格特有颜色变量 - 深色模式 */
+  --neumorphism-bg: #1a1a1a;
+  --neumorphism-shadow-light: rgba(50, 50, 50, 0.5);
+  --neumorphism-shadow-dark: rgba(0, 0, 0, 0.7);
+  --neumorphism-highlight: rgba(70, 70, 70, 0.7);
+  
+  /* 覆盖基础变量 */
+  --bg-color: #1a1a1a;
+  --bg-color-secondary: #222222;
+  
+  /* 拟态阴影 - 深色模式 */
+  --shadow-sm: 5px 5px 10px var(--neumorphism-shadow-dark), -5px -5px 10px var(--neumorphism-shadow-light);
+  --shadow-md: 8px 8px 16px var(--neumorphism-shadow-dark), -8px -8px 16px var(--neumorphism-shadow-light);
+  --shadow-lg: 12px 12px 24px var(--neumorphism-shadow-dark), -12px -12px 24px var(--neumorphism-shadow-light);
+  
+  /* 拟态内阴影 - 深色模式 */
+  --shadow-inset-sm: inset 3px 3px 6px var(--neumorphism-shadow-dark), inset -3px -3px 6px var(--neumorphism-shadow-light);
+  --shadow-inset-md: inset 5px 5px 10px var(--neumorphism-shadow-dark), inset -5px -5px 10px var(--neumorphism-shadow-light);
+}
+
+/* 拟态风格特有样式 */
+[data-theme-style="neumorphism"] .header {
+  background-color: var(--bg-color);
+  box-shadow: var(--shadow-sm);
+  border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+}
+
+[data-theme-style="neumorphism"] .logo {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme-style="neumorphism"] .main-nav a {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+[data-theme-style="neumorphism"] .main-nav a:hover,
+[data-theme-style="neumorphism"] .main-nav a.active {
+  box-shadow: var(--shadow-inset-sm);
+}
+
+[data-theme-style="neumorphism"] .search-box input {
+  background-color: var(--bg-color);
+  box-shadow: var(--shadow-inset-sm);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+[data-theme-style="neumorphism"] .search-box input:focus {
+  box-shadow: var(--shadow-inset-md);
+}
+
+[data-theme-style="neumorphism"] .theme-toggle {
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm);
+}
+
+[data-theme-style="neumorphism"] .theme-toggle:hover {
+  box-shadow: var(--shadow-inset-sm);
+}
+
+/* 按钮样式 */
+[data-theme-style="neumorphism"] .btn {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  transition: all var(--transition-normal);
+}
+
+[data-theme-style="neumorphism"] .btn:hover {
+  box-shadow: var(--shadow-inset-sm);
+  background-color: var(--bg-color);
+}
+
+[data-theme-style="neumorphism"] .btn-primary {
+  color: var(--primary-color);
+}
+
+[data-theme-style="neumorphism"] .btn-secondary {
+  color: var(--secondary-color);
+}
+
+[data-theme-style="neumorphism"] .btn-accent {
+  color: var(--accent-color);
+}
+
+/* 卡片样式 */
+[data-theme-style="neumorphism"] .card {
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+[data-theme-style="neumorphism"] .card:hover {
+  transform: translateY(-5px);
+}
+
+[data-theme-style="neumorphism"] .card-img {
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+}
+
+[data-theme-style="neumorphism"] .card-body {
+  padding: var(--spacing-md);
+}
+
+[data-theme-style="neumorphism"] .card-footer {
+  background-color: var(--bg-color);
+  border-top: none;
+  position: relative;
+}
+
+[data-theme-style="neumorphism"] .card-footer:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--spacing-md);
+  right: var(--spacing-md);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-color), transparent);
+}
+
+/* 表单元素 */
+[data-theme-style="neumorphism"] .form-control {
+  background-color: var(--bg-color);
+  box-shadow: var(--shadow-inset-sm);
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+[data-theme-style="neumorphism"] .form-control:focus {
+  box-shadow: var(--shadow-inset-md);
+  outline: none;
+}
+
+/* 幻灯片 */
+[data-theme-style="neumorphism"] .slider {
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+[data-theme-style="neumorphism"] .slider-nav-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--bg-color);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+[data-theme-style="neumorphism"] .slider-nav-btn.active {
+  box-shadow: var(--shadow-inset-sm);
+}
+
+/* 公告模块 */
+[data-theme-style="neumorphism"] .announcement {
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+/* 文章列表 */
+[data-theme-style="neumorphism"] .article-item {
+  border-bottom: none;
+  position: relative;
+  padding-bottom: var(--spacing-lg);
+}
+
+[data-theme-style="neumorphism"] .article-item:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: var(--spacing-md);
+  right: var(--spacing-md);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-color), transparent);
+}
+
+[data-theme-style="neumorphism"] .article-img img {
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 分页 */
+[data-theme-style="neumorphism"] .pagination-link {
+  background-color: var(--bg-color);
+  box-shadow: var(--shadow-sm);
+  border: none;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-normal);
+}
+
+[data-theme-style="neumorphism"] .pagination-link:hover,
+[data-theme-style="neumorphism"] .pagination-link.active {
+  box-shadow: var(--shadow-inset-sm);
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+}
+
+/* 侧边栏 */
+[data-theme-style="neumorphism"] .sidebar-widget {
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-md);
+}
+
+[data-theme-style="neumorphism"] .sidebar-title {
+  border-bottom: none;
+  position: relative;
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+[data-theme-style="neumorphism"] .sidebar-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary-color), transparent);
+  border-radius: var(--border-radius-sm);
+}
+
+[data-theme-style="neumorphism"] .sidebar-list li {
+  border-bottom: none;
+  position: relative;
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+[data-theme-style="neumorphism"] .sidebar-list li:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-color), transparent);
+}
+
+/* 标签云 */
+[data-theme-style="neumorphism"] .tag-link {
+  background-color: var(--bg-color);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-normal);
+}
+
+[data-theme-style="neumorphism"] .tag-link:hover {
+  box-shadow: var(--shadow-inset-sm);
+  color: var(--primary-color);
+  background-color: var(--bg-color);
+}
+
+/* 页脚 */
+[data-theme-style="neumorphism"] .footer {
+  background-color: var(--bg-color);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+[data-theme-style="neumorphism"] .footer-bottom {
+  border-top: none;
+  position: relative;
+}
+
+[data-theme-style="neumorphism"] .footer-bottom:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--spacing-md);
+  right: var(--spacing-md);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-color), transparent);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  [data-theme-style="neumorphism"] .main-nav {
+    background-color: var(--bg-color);
+    box-shadow: var(--shadow-md);
+  }
+}

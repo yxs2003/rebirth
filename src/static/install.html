@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebirth 主题 - 安装指南</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/flat.css">
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/theme-switcher.js"></script>
+</head>
+<body data-theme-style="flat">
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <img src="/static/img/logo-light.png" alt="Rebirth">
+                </div>
+                
+                <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="菜单" aria-expanded="false">
+                    <span>☰</span>
+                </button>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/install.html" class="active">安装指南</a></li>
+                        <li><a href="/documentation.html">使用文档</a></li>
+                        <li><a href="/about.html">关于</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-right">
+                    <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">🌙</button>
+                    
+                    <select id="style-selector" class="style-selector">
+                        <option value="flat">扁平风格</option>
+                        <option value="neumorphism">拟态风格</option>
+                        <option value="newspaper">报纸风格</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Rebirth 主题安装指南</h1>
+            </div>
+            
+            <div class="content-box">
+                <h2>系统要求</h2>
+                <ul>
+                    <li>Python 3.8+</li>
+                    <li>MySQL 5.7+</li>
+                    <li>现代浏览器（Chrome、Firefox、Safari、Edge等）</li>
+                </ul>
+                
+                <h2>安装步骤</h2>
+                
+                <h3>1. 下载源码</h3>
+                <div class="code-block">
+                    <pre><code>git clone https://github.com/your-username/rebirth-theme.git
+cd rebirth-theme</code></pre>
+                </div>
+                
+                <h3>2. 创建虚拟环境</h3>
+                <div class="code-block">
+                    <pre><code>python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# 或
+venv\Scripts\activate  # Windows</code></pre>
+                </div>
+                
+                <h3>3. 安装依赖</h3>
+                <div class="code-block">
+                    <pre><code>pip install -r requirements.txt</code></pre>
+                </div>
+                
+                <h3>4. 配置数据库</h3>
+                <p>创建MySQL数据库，并在<code>src/main.py</code>中配置数据库连接：</p>
+                <div class="code-block">
+                    <pre><code>app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.getenv('DB_USERNAME', 'root')}:{os.getenv('DB_PASSWORD', 'password')}@{os.getenv('DB_HOST', 'localhost')}:{os.getenv('DB_PORT', '3306')}/{os.getenv('DB_NAME', 'rebirth_db')}"</code></pre>
+                </div>
+                
+                <h3>5. 初始化数据库</h3>
+                <div class="code-block">
+                    <pre><code>python src/init_db.py</code></pre>
+                </div>
+                
+                <h3>6. 运行应用</h3>
+                <div class="code-block">
+                    <pre><code>python src/main.py</code></pre>
+                </div>
+                <p>现在，您可以通过访问 <a href="http://localhost:5000">http://localhost:5000</a> 来查看网站。</p>
+                
+                <h3>7. 访问管理后台</h3>
+                <p>访问 <a href="http://localhost:5000/login.html">http://localhost:5000/login.html</a> 并使用以下默认管理员账号登录：</p>
+                <ul>
+                    <li>用户名：admin</li>
+                    <li>密码：admin123</li>
+                </ul>
+                <p><strong>注意：</strong> 首次登录后请立即修改默认密码！</p>
+                
+                <h2>目录结构</h2>
+                <div class="code-block">
+                    <pre><code>rebirth-theme/
+├── docs/                 # 文档
+├── src/                  # 源代码
+│   ├── models/           # 数据库模型
+│   ├── routes/           # API路由
+│   ├── static/           # 静态资源
+│   │   ├── css/          # 样式表
+│   │   ├── js/           # JavaScript脚本
+│   │   ├── img/          # 图片资源
+│   │   ├── admin/        # 后台管理页面
+│   │   └── index.html    # 前台首页
+│   └── main.py           # 应用入口
+├── venv/                 # 虚拟环境
+├── requirements.txt      # 依赖列表
+└── README.md             # 项目说明</code></pre>
+                </div>
+                
+                <h2>部署到生产环境</h2>
+                <p>对于生产环境，我们推荐使用Gunicorn作为WSGI服务器，并配合Nginx作为反向代理。</p>
+                
+                <h3>1. 安装Gunicorn</h3>
+                <div class="code-block">
+                    <pre><code>pip install gunicorn</code></pre>
+                </div>
+                
+                <h3>2. 使用Gunicorn启动应用</h3>
+                <div class="code-block">
+                    <pre><code>gunicorn -w 4 -b 127.0.0.1:5000 src.main:app</code></pre>
+                </div>
+                
+                <h3>3. Nginx配置示例</h3>
+                <div class="code-block">
+                    <pre><code>server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location /static {
+        alias /path/to/rebirth-theme/src/static;
+        expires 30d;
+    }
+}</code></pre>
+                </div>
+                
+                <h2>常见问题</h2>
+                
+                <div class="faq-item">
+                    <h3>Q: 如何修改默认主题风格？</h3>
+                    <p>A: 登录管理后台，进入"网站设置"页面，在"主题设置"部分选择您喜欢的风格。</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Q: 如何添加新的文章分类？</h3>
+                    <p>A: 登录管理后台，进入"分类管理"页面，点击"新建分类"按钮。</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Q: 如何更改网站Logo？</h3>
+                    <p>A: 登录管理后台，进入"网站设置"页面，在"Logo设置"部分上传新的Logo图片。</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Q: 数据库迁移如何处理？</h3>
+                    <p>A: 本项目暂未集成自动迁移工具，如需修改数据库结构，请手动编写迁移脚本。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-widget">
+                    <h3>关于我们</h3>
+                    <p>Rebirth是一个多风格可自选的自适应网站主题，支持多种风格切换和黑夜白天模式。</p>
+                </div>
+                <div class="footer-widget">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/install.html">安装指南</a></li>
+                        <li><a href="/documentation.html">使用文档</a></li>
+                        <li><a href="/about.html">关于</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget">
+                    <h3>联系我们</h3>
+                    <ul>
+                        <li>邮箱: info@rebirth.com</li>
+                        <li>电话: 123-456-7890</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Rebirth主题. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <style>
+        .page-header {
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .content-box {
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .code-block {
+            background-color: var(--bg-color-secondary);
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            margin: 0;
+        }
+        
+        .code-block code {
+            font-family: monospace;
+            white-space: pre;
+        }
+        
+        .faq-item {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .faq-item h3 {
+            color: var(--primary-color);
+        }
+    </style>
+</body>
+</html>
