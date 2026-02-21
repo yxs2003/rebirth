@@ -1,0 +1,157 @@
+:root {
+    --primary: #6c5ce7;
+    --secondary: #a29bfe;
+    --dark: #2d3436;
+    --light: #dfe6e9;
+    --glass: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 登录页专用 */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #a8c0ff, #3f2b96);
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* 后台布局 Grid */
+.admin-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+}
+
+/* 侧边栏 */
+.sidebar {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.logo span { color: var(--primary); }
+
+.nav-link {
+    display: block;
+    padding: 12px 16px;
+    color: #636e72;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+/* 主内容区 */
+.main-content {
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.page-title { font-size: 1.8rem; font-weight: 700; color: #2d3436; }
+
+.card {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    margin-bottom: 20px;
+}
+
+/* 表单元素 */
+.form-input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 20px 0;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    background: #f8f9fa;
+    outline: none;
+    transition: 0.3s;
+}
+.form-input:focus { border-color: var(--primary); background: #fff; }
+
+.btn {
+    padding: 12px 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn:hover { background: #5649c0; transform: translateY(-2px); }
+.btn-danger { background: #ff7675; }
+.btn-danger:hover { background: #d63031; }
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .admin-container { grid-template-columns: 1fr; }
+    .sidebar { display: none; } /* 移动端暂时隐藏侧边栏，后续做汉堡菜单 */
+}
+/* Custom UI Modal */
+.rb-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 9999; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; }
+.rb-modal-overlay.show { display: flex; opacity: 1; }
+.rb-modal-box { background: #fff; width: 400px; padding: 25px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); transform: scale(0.9); transition: 0.3s; }
+.rb-modal-overlay.show .rb-modal-box { transform: scale(1); }
+.rb-modal-title { margin-top: 0; color: var(--dark); font-size: 1.2rem; margin-bottom: 15px; }
+.rb-modal-input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; outline: none; }
+.rb-modal-input:focus { border-color: var(--primary); }
+.rb-modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.rb-modal-btn { padding: 8px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-cancel { background: #f1f2f6; color: #636e72; }
+.btn-confirm { background: var(--primary); color: #fff; }
